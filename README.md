@@ -12,9 +12,25 @@
 
 This project constructs a full quantitative simulation of interest rate risk management (IRRBB) for a stylised French retail bank, calibrated on the March 2024 EUR OIS curve.
 
-The central question is whether IRRBB regulatory compliance and NII preservation are structurally incompatible after the 450 bp ECB tightening cycle of 2022–2024 — or whether the specific macro-financial configuration of March 2024 opens a compatibility window.
+The central question is whether IRRBB regulatory compliance and NII preservation are structurally incompatible after the 450 bp ECB tightening cycle of 2022–2024, or whether the specific macro-financial configuration of March 2024 opens a compatibility window.
 
 ---
+
+## Context & Motivation
+
+Between July 2022 and September 2023, the ECB raised its deposit rate by 450 basis points, the fastest tightening cycle since the creation of the euro area. This shock exposed a structural vulnerability that had quietly accumulated over a decade of near-zero rates: French retail banks had massively extended long-term fixed-rate mortgages while funding them with short-term deposits. A classic liability-sensitive balance sheet, perfectly rational in a low-rate environment, suddenly faced a brutal repricing asymmetry.
+
+The tension this creates is well-known in theory: protecting economic value (EVE) against rising rates requires hedging instruments that cost on the income statement (NII). But what made March 2024 unusual, and worth studying, is that the inverted yield curve flipped this trade-off. Pay-fixed swaps, which had historically generated 30–40 M€/year of negative carry, were suddenly generating *positive* carry. Hedging was not only a regulatory necessity; it had become economically attractive.
+
+This project investigates whether this alignment between regulatory compliance and economic optimality is real, how wide the compatibility window actually is, and crucially whether it holds under uncertainty.
+
+## Approach
+
+Rather than a purely theoretical treatment, the paper follows the operational logic of an ALM committee: starting from a calibrated balance sheet, computing NII and EVE under the six EBA regulatory stress scenarios, designing a hedging strategy bucket by bucket, and then constructing the NII/EVE efficient frontier inspired by Markowitz to map all accessible (NII, EVE) pairs as a function of hedge coverage.
+
+Two extensions then challenge the deterministic conclusions. A Hull-White Monte Carlo simulation (1,000 trajectories calibrated on the March 2024 OIS curve) probabilises the compliance zone, revealing that it is accessible with 83.3% probability but that 16.7% of plausible rate trajectories still leave the balance sheet in prudential alert despite hedging. A second extension integrates endogenous client behaviours, prepayment logistic functions and rate-sensitive demand deposit durations, to test whether the conclusions hold when the balance sheet itself adapts to the rate path.
+
+The result is a decision-making tool, not just a diagnostic: the efficient frontier transforms a complex multidimensional optimisation problem into a legible map of trade-offs for institutional governance.
 
 ## Key Results
 
@@ -26,15 +42,6 @@ The central question is whether IRRBB regulatory compliance and NII preservation
 
 ---
 
-## Structure
-
-```
-├── write-up.pdf          # Full paper (26 pages)
-├── IRRBB_model.ipynb     # Python simulation notebook
-└── README.md
-```
-
----
 
 ## Methodology
 
