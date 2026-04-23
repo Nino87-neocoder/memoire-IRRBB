@@ -1,4 +1,3 @@
-# memoire-IRRBB
 
 # IRRBB — NII/EVE Efficient Frontier
 
